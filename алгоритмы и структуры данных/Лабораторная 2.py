@@ -27,3 +27,4 @@ if flag == True and len(stack) == 0:
 else:
     print("Строка нехорошая(")
 
+print("гит говно")
