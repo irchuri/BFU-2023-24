@@ -40,7 +40,9 @@ stroka = (input("Введите число:"))
 if not stroka.isdigit():
     print("Введённая строка не является числом :(")
     exit(0)
-
+if int(stroka) == 1000:
+    print("тысяча")
+    exit(0)
 stroka = list(stroka)
 stroka = list(map(int, stroka))
 # print(stroka)
@@ -62,3 +64,4 @@ elif len(stroka) == 3:
         print(numbers11[stroka[1]])
     else:
         print(numbers10[stroka[1]], numbers9[stroka[2]])
+
