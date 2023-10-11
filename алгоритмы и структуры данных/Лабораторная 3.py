@@ -2,13 +2,22 @@
 # k l m > 0, int
 # > in x
 # > out 1 to x
+def log(num, base):
+    cnt = 0
+    temp = base
+    while temp < num:
+        cnt += 1
+        temp = base**cnt
+    if temp == num:
+        return cnt
+    else:
+        return cnt-1
 
-from math import log
 
 x = int(input())
-log1 = int(log(x, 3))
-log2 = int(log(x, 5))
-log3 = int(log(x, 7))
+log1 = log(x, 3)
+log2 = log(x, 5)
+log3 = log(x, 7)
 temp = 1
 a = set()
 for k in range(0, log1 + 1):
@@ -20,3 +29,5 @@ for k in range(0, log1 + 1):
 b = list(a)
 b.sort()
 print(*b, sep=' ')
+
+
