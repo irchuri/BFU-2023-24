@@ -20,7 +20,11 @@ def skobki(expression: list):
     while True:
         if '(' not in expression:
             break
-        indeks = ''.join(expression).rindex('(')
+        indeks = 0
+        for i in range(len(expression) - 1, -1, -1):
+            if expression[i] == '(':
+                indeks = i
+                break
         if expression[indeks + 1] == ')':
             raise ValueError("Проверка на дурака провалена!")
         left = expression[:indeks]
@@ -56,7 +60,8 @@ def durak(expression: list):
                 continue
             flag = False
             break
-    return not(flag == True and len(stack) == 0)
+    return not (flag == True and len(stack) == 0)
+
 
 def evaluate(expression: list):
     temp = []
@@ -92,34 +97,6 @@ def evaluate(expression: list):
 
     return str(accum)
 
-
-def calc(expression: list):
-    left = 0
-    right = 0
-    answer = []
-    flag = True
-    while flag:
-        flag = False
-        for i in range(len(expression)):
-            if expression[i] == '*':
-                left = expression[i - 1]
-                right = expression[i + 1]
-                expression[i] = left * right
-                flag = True
-                break
-
-            elif expression[i] == '/':
-                left = expression[i - 1]
-                right = expression[i + 1]
-                if right == 0:
-                    raise ZeroDivisionError("Деление на ноль!")
-                else:
-                    answer.append(left / right)
-
-    for i in range(len(expression)):
-        pass
-
-    return answer
 
 
 input = input().replace(' ', '')
