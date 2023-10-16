@@ -60,7 +60,26 @@ def durak(expression: list):
                 continue
             flag = False
             break
-    return not (flag == True and len(stack) == 0)
+    if '=' not in expression:
+        flag = False
+    for i in range(1, len(str(expression))):
+        if expression[i] == '=':
+            if expression[i - 1] in '+-*/':
+                flag = False
+        if expression[i] == ')':
+            if expression[i - 1] in '+-*/':
+                flag = False
+        if expression[i] in '+-*/':
+            if expression[i - 1] == '(':
+                flag = False
+    countOP = 0
+    operators = ["+", "-", "/", "*"]
+    for operator in expression:
+        if operator in operators:
+            countOP += 1
+    if countOP == 0:
+        flag = False
+    return not (flag and len(stack) == 0)
 
 
 def evaluate(expression: list):
@@ -98,9 +117,8 @@ def evaluate(expression: list):
     return str(accum)
 
 
-
-input = input().replace(' ', '')
-if not durak(input):
-    print(evaluate(skobki(tokenize(input))))
+pinput = input().replace(' ', '')
+if not durak(pinput):
+    print(evaluate(skobki(tokenize(pinput))))
 else:
     print("Проверка на дурака провалена!")
