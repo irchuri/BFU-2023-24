@@ -1,3 +1,6 @@
+#arr1 = list(map(int, input().split()))
+#arr2 = list(map(int, input().split()))
+
 arr1 = [1,5,67,89,2,33,4,12,13]
 arr2 = [1,67,89,2.33,12,13]
 counter = 0

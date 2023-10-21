@@ -1,3 +1,5 @@
+#arr = list(input().split())
+
 arr = ['abc', 'bcd', 'abc', 'abd', 'abd', 'dcd', 'abc']
 counts = []
 
