@@ -2,12 +2,16 @@ import json
 import csv
 
 with open('Sample-employee-JSON-data.json') as f:
-    data = json.loads(f.read())
-print(data)
-data1 = data["Employees"]
-print(data1)
-dict_keys = list(data1[0].keys())
-print(dict_keys)
+    json_data = json.load(f)
 
-v = csv.writer("test.csv", "wb+")
-v.writerow(dict_keys)
+data = json_data[(list(dict.items(json_data))[0])[0]]
+
+with open("output.csv", 'w') as csv_file:
+    csv_writer = csv.writer(csv_file)
+    count = 0
+    for item in data:
+        if count == 0:
+            header = item.keys()
+            csv_writer.writerow(header)
+            count += 1
+        csv_writer.writerow(item.values())
