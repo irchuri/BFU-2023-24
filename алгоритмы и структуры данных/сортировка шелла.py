@@ -31,3 +31,4 @@ while interval > 0:
     k -= 1
     interval = 2**k -1
 print(spisok)
+ 
