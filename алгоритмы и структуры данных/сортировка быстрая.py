@@ -1,11 +1,11 @@
 from random import randint
 
 
-def quickSort(array):
-    if len(array) > 1:
-        pivot = array.pop()
+def quick_Sort(unsorted_numbers: list[int]) -> list[int]:
+    if len(unsorted_numbers) > 1:
+        pivot = unsorted_numbers.pop(len(unsorted_numbers) // 2 + 1)
         grtr_lst, equal_lst, smlr_lst = [], [pivot], []
-        for item in array:
+        for item in unsorted_numbers:
             if item == pivot:
                 equal_lst.append(item)
             elif item > pivot:
@@ -14,11 +14,11 @@ def quickSort(array):
                 smlr_lst.append(item)
         return quickSort(smlr_lst) + equal_lst + quickSort(grtr_lst)
     else:
-        return array
+        return unsorted_numbers
 
 
-spisok = [randint(-100, 100) for i in range(10)]
+#spisok = [randint(-100, 100) for i in range(10)]
 # spisok = list(map(int, input().split()))
-
+spisok = ['11', '12', '-33']
 print(spisok)
 print(quickSort(spisok))
