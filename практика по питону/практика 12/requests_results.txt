@@ -1,0 +1,51 @@
+--- Request 1 ---
+status_code: 200
+headers: {'Date': 'Mon, 11 Dec 2023 19:57:55 GMT', 'Content-Type': 'application/json', 'Content-Length': '308', 'Connection': 'keep-alive', 'Server': 'gunicorn/19.9.0', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': 'true'}
+text: {
+  "args": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.31.0", 
+    "X-Amzn-Trace-Id": "Root=1-657769c3-52f0861d7357c83e3d6fa2d7"
+  }, 
+  "origin": "92.101.197.100", 
+  "url": "https://httpbin.org/get"
+}
+
+
+--- Request 2 ---
+status_code: 200
+headers: {'Date': 'Mon, 11 Dec 2023 19:57:55 GMT', 'Content-Type': 'application/json', 'Content-Length': '308', 'Connection': 'keep-alive', 'Server': 'gunicorn/19.9.0', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': 'true'}
+text: {
+  "args": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.31.0", 
+    "X-Amzn-Trace-Id": "Root=1-657769c3-224ffd0766722f7f55220a6c"
+  }, 
+  "origin": "92.101.197.100", 
+  "url": "https://httpbin.org/get"
+}
+
+
+--- Request 3 ---
+status_code: 200
+headers: {'Date': 'Mon, 11 Dec 2023 19:57:56 GMT', 'Content-Type': 'application/json', 'Content-Length': '308', 'Connection': 'keep-alive', 'Server': 'gunicorn/19.9.0', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': 'true'}
+text: {
+  "args": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.31.0", 
+    "X-Amzn-Trace-Id": "Root=1-657769c4-328d3a3a57bbc13a04afb5c4"
+  }, 
+  "origin": "92.101.197.100", 
+  "url": "https://httpbin.org/get"
+}
+
+
