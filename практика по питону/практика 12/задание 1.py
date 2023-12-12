@@ -1,6 +1,5 @@
 import requests as req
 
-# Открываем файл для записи результатов запросов
 with open('requests_results.txt', 'w') as file:
 
     request1 = req.get('https://httpbin.org/get')
