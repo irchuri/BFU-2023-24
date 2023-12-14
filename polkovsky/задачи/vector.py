@@ -92,7 +92,9 @@ class Vector:
     def __or__(self, other):
         if type(other) != Vector:
             raise VectorError
-        return self.x / other.x == self.y / other.y == self.z / other.z
+        return self^other == Vector([0,0,0])
+
+
 
     @staticmethod
     def are_complanar(a, b, c):
@@ -103,10 +105,15 @@ class Vector:
     def __str__(self):
         return f'Vector: x={self.x} y={self.y} z={self.z}'
 
+    def __eq__(self, other):
+        return self.x - other.x == self.y - other.y == self.z - other.z
 
 if __name__ == '__main__':
-    v1 = Vector()
-    v2 = Vector(1)
-    v3 = Vector([5, 1, -1.5])
-    print(v3)
-    print(v3 + v2)
+    v1 = Vector([1,1,1])
+    v2 = Vector([2,2,2])
+    v3 = Vector([3,4,5])
+    v0 = Vector([0,0,0])
+    #v4 = Vector([])
+    print(v3|v1)
+    print(v1| v2)
+    print(v1|v0)
