@@ -1,11 +1,11 @@
 from random import randint
 
 
-def quick_Sort(unsorted_numbers: list[int]) -> list[int]:
-    if len(unsorted_numbers) > 1:
-        pivot = unsorted_numbers.pop(len(unsorted_numbers) // 2 + 1)
+def quick_Sort(lst: list[int]) -> list[int]:
+    if len(lst) > 1:
+        pivot = lst.pop(len(lst) // 2 + 1)
         grtr_lst, equal_lst, smlr_lst = [], [pivot], []
-        for item in unsorted_numbers:
+        for item in lst:
             if item == pivot:
                 equal_lst.append(item)
             elif item > pivot:
@@ -14,7 +14,7 @@ def quick_Sort(unsorted_numbers: list[int]) -> list[int]:
                 smlr_lst.append(item)
         return quick_Sort(smlr_lst) + equal_lst + quick_Sort(grtr_lst)
     else:
-        return unsorted_numbers
+        return lst
 
 
 
