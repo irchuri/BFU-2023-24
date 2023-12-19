@@ -12,7 +12,7 @@ def quick_Sort(unsorted_numbers: list[int]) -> list[int]:
                 grtr_lst.append(item)
             else:
                 smlr_lst.append(item)
-        return quickSort(smlr_lst) + equal_lst + quickSort(grtr_lst)
+        return quick_Sort(smlr_lst) + equal_lst + quick_Sort(grtr_lst)
     else:
         return unsorted_numbers
 
@@ -21,4 +21,4 @@ def quick_Sort(unsorted_numbers: list[int]) -> list[int]:
 # spisok = list(map(int, input().split()))
 spisok = ['11', '12', '-33']
 print(spisok)
-print(quickSort(spisok))
+print(quick_Sort(spisok))
