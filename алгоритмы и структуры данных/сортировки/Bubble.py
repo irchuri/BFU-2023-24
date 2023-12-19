@@ -1,5 +1,6 @@
 spisok = list(map(int, input().split()))
 flag = True
+
 while flag:
     flag = False
     for i in range(0, len(spisok) - 1):

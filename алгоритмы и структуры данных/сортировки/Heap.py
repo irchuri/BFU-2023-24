@@ -9,7 +9,6 @@ def heapify(array, n, i):
         largest = l
     if r < n and array[largest] < array[r]:
         largest = r
-
     if largest != i:
         array[i], array[largest] = array[largest], array[i]
         heapify(array, n, largest)

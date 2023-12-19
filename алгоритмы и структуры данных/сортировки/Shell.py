@@ -15,7 +15,6 @@ def log(num, base):
 
 spisok = [randint(-100, 100) for i in range(20)]
 # spisok = list(map(int, input().split()))
-
 print(spisok)
 
 n = len(spisok)

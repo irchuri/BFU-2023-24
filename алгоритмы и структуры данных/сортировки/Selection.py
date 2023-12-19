@@ -9,6 +9,7 @@ def selection_sort(spisok):
         print(spisok)
 
 
+
 #spisok = list(map(int, input().split()))
 spisok = [random.randint(-100, 100) for i in range(10)]
 selection_sort(spisok)

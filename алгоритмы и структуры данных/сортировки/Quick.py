@@ -17,6 +17,7 @@ def quick_Sort(unsorted_numbers: list[int]) -> list[int]:
         return unsorted_numbers
 
 
+
 #spisok = [randint(-100, 100) for i in range(10)]
 # spisok = list(map(int, input().split()))
 spisok = ['11', '12', '-33']

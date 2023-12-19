@@ -31,6 +31,7 @@ def merge(lst1, lst2):
             i += 1
     return lst
 
+
 #spisok = list(map(int, input().split()))
 spisok = [randint(-100, 100) for i in range(10)]
 print(spisok)
