@@ -1,5 +1,6 @@
 from random import randint
 
+
 def mergeSort(nums):
     if len(nums) == 1:
         return nums
@@ -32,7 +33,7 @@ def merge(lst1, lst2):
     return lst
 
 
-#spisok = list(map(int, input().split()))
+# spisok = list(map(int, input().split()))
 spisok = [randint(-100, 100) for i in range(10)]
 print(spisok)
 print(mergeSort(spisok))

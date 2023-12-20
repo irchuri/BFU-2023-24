@@ -1,25 +1,20 @@
-from random import randint
+from random import randint, choice
 
 
-def quick_Sort(lst: list[int]) -> list[int]:
-    if len(lst) > 1:
-        pivot = lst.pop(len(lst) // 2 + 1)
-        grtr_lst, equal_lst, smlr_lst = [], [pivot], []
-        for item in lst:
-            if item == pivot:
-                equal_lst.append(item)
-            elif item > pivot:
-                grtr_lst.append(item)
-            else:
-                smlr_lst.append(item)
-        return quick_Sort(smlr_lst) + equal_lst + quick_Sort(grtr_lst)
+def Quick_sort(nums):
+    if len(nums) <= 1:
+        return nums
     else:
-        return lst
+        pivot = choice(nums)  # выбор псевдослучайного пивота
+        # разделение на три списка: меньше пивота, больше пивота, равные пивоту
+        lesser_pivot = [n for n in nums if n < pivot]
+        greater_pivot = [n for n in nums if n > pivot]
+        equal_pivot = [pivot] * nums.count(pivot)
+
+        return Quick_sort(lesser_pivot) + equal_pivot + Quick_sort(greater_pivot)
 
 
-
-#spisok = [randint(-100, 100) for i in range(10)]
 # spisok = list(map(int, input().split()))
-spisok = ['11', '12', '-33']
+spisok = [randint(-100, 100) for i in range(10)]
 print(spisok)
-print(quick_Sort(spisok))
+print(Quick_sort(spisok))
