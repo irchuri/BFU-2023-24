@@ -1,3 +1,4 @@
+import random
 from itertools import combinations
 
 class Point:
@@ -40,7 +41,7 @@ class Point:
         return not self == other
 
     def __str__(self):
-        return f'Point(x={self.x}, y={self.y})'
+        return f'Point({self.x}, {self.y})'
 
 
 class TiLoxError(Exception):
@@ -258,6 +259,7 @@ triangle2_points = [(2.16, 6.63), (2.14, 2.64), (5.84, 2.47)]
 
 # Создаём лист точек
 merged_points = [Point(*i) for i in circle_points + triangle1_points + triangle2_points] + [Point(1,1)]
+merged_points = [Point(random.randint(-100, 100) + random.random(), random.randint(-100, 100) + random.random()) for _ in range(100)]
 __import__('random').shuffle(merged_points)
 found_triangles = False
 for nine_set in combinations(merged_points, 9):
