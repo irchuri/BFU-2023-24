@@ -1,11 +1,16 @@
+from __future__ import annotations
+
+from typing import Optional, Callable, Any
+
+
 class Node:
-    def __init__(self, value=None):
+    def __init__(self, value=None) -> None:
         self.value = value
         self.left = None
         self.right = None
 
     @staticmethod
-    def insert(node, value):
+    def insert(node: Node, value: Optional[int]) -> None:
         if node.value is None:
             node.value = value
         if value < node.value:
@@ -20,8 +25,8 @@ class Node:
                 node.insert(node.right, value)
 
     @staticmethod
-    def search(node, value):
-        if node is None or node==value:
+    def search(node: Node, value: Optional[int]) -> Any:
+        if node is None or node == value:
             return node
         if value < node.value:
             return node.search(node.left, value)
@@ -29,23 +34,22 @@ class Node:
             return node.search(node.right, value)
 
     @staticmethod
-    def getMin(node):
+    def get_min(node: Node) -> Any:
         if node is None:
             return None
         if node.left is None:
             return node
-        return node.getMin(node.left)
+        return node.get_min(node.left)
 
     @staticmethod
-    def getMax(node):
+    def get_max(node: Node) -> Any:
         if node is None:
             return None
         if node.right is None:
             return node
-        return node.getMax(node.right)
+        return node.get_max(node.right)
 
-
-    def delete(self, node, value):
+    def delete(self, node: Node, value: Optional[int]) -> Optional[Node]:
         if node is None:
             return None
         if value < node.value:
@@ -57,53 +61,52 @@ class Node:
                 return node.right
             elif node.right is None:
                 return node.left
-            node.value = self._get_min_value(node.right)
+            node.value = self.get_min_value(node.right)
             node.right = self.delete(node.right, node.value)
         return node
 
-    def _get_min_value(self, node):
+    def get_min_value(self, node: Node) -> Optional[int]:
         while node.left is not None:
             node = node.left
         return node.value
 
-
     @staticmethod
-    def inorderTraversal(node):
+    def in_order_traversal(node: Node) -> Any:  # центровой
         if node is None:
             return None
-        node.inorderTraversal(node.left)
+        node.in_order_traversal(node.left)
         print(node.value, end=" ")
-        node.inorderTraversal(node.right)
+        node.in_order_traversal(node.right)
 
     @staticmethod
-    def preorderTraversal(node):
+    def preorder_traversal(node: Node) -> Any:  # прямой
         if node is None:
             return None
         print(node.value, end=" ")
-        node.preorderTraversal(node.left)
-        node.preorderTraversal(node.right)
+        node.preorder_traversal(node.left)
+        node.preorder_traversal(node.right)
 
     @staticmethod
-    def postorderTraversal(node):
+    def postorder_traversal(node: Node) -> Any:  # обратный
         if node is None:
             return None
-        node.postorderTraversal(node.left)
-        node.postorderTraversal(node.right)
+        node.postorder_traversal(node.left)
+        node.postorder_traversal(node.right)
         print(node.value, end=" ")
 
     @staticmethod
-    def stackPreorderTraversal(node):
+    def stack_preorder_traversal(node: Node) -> Any:
         stack = LinkedStack()
         while (not (node is None)) or (not stack.is_empty()):
             if not stack.is_empty():
                 node = stack.pop()
-            while not(node is None):
+            while not (node is None):
                 print(node.value, end=" ")
                 if node.right is not None:
                     stack.push(node.right)
                 node = node.left
 
-    def setWithLine(self, line):
+    def set_with_line(self, line: str) -> None:
         notNumbers = "(), "
         ind = 0
         tempLine = line
@@ -112,56 +115,56 @@ class Node:
                 num = tempLine[:ind]
                 if num != "":
                     self.insert(self, int(num))
-                tempLine = tempLine[ind+1:]
+                tempLine = tempLine[ind + 1:]
                 ind = 0
             else:
                 ind += 1
 
     @staticmethod
-    def printWithLine(node):
+    def print_with_line(node: Node) -> None:
         if node is None:
             return None
         print(node.value, end="")
         if node.left is not None or node.right is not None:
             print(" (", end="")
-        node.printWithLine(node.left)
+        node.print_with_line(node.left)
         if node.left is not None or node.right is not None:
             print(", ", end="")
-        node.printWithLine(node.right)
+        node.print_with_line(node.right)
         if node.left is not None or node.right is not None:
             print(")", end="")
 
 
 class LinkedStack:
-    def __init__(self):
+    def __init__(self) -> None:
         self.top = None
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return self.top is None
 
-    def push(self, item):
+    def push(self, item: Node) -> None:
         new_node = Node(item)
         new_node.right = self.top
         self.top = new_node
 
-    def pop(self):
+    def pop(self) -> Any:
         if self.is_empty():
             raise Exception("Stack is empty")
         item = self.top.value
         self.top = self.top.right
         return item
 
-    def peek(self):
+    def peek(self) -> Any:
         if self.is_empty():
             raise Exception("Stack is empty")
         return self.top.value
 
 
 print("input a binary tree: ")
-newline = input()
+newLine = input()
 
 Tree = Node()
-Tree.setWithLine(newline)
+Tree.set_with_line(newLine)
 while True:
     print("\nWhat do you want to do with tree?")
     print("1) insert")
@@ -187,18 +190,18 @@ while True:
             print("input a number to search")
             num = int(input())
             temp = Node.search(Tree, num)
-            Node.printWithLine(temp)
+            Node.print_with_line(temp)
         case 4:
-            Node.preorderTraversal(Tree)
+            Node.preorder_traversal(Tree)
         case 5:
-            Node.inorderTraversal(Tree)
+            Node.preorder_traversal(Tree)
         case 6:
-            Node.postorderTraversal(Tree)
+            Node.preorder_traversal(Tree)
         case 7:
-            Node.printWithLine(Tree)
+            Node.print_with_line(Tree)
         case 8:
-            Node.stackPreorderTraversal(Tree)
+            Node.preorder_traversal(Tree)
         case 0:
             break
 
-Node.printWithLine(Tree)
+Node.print_with_line(Tree)

@@ -1,7 +1,7 @@
 from random import randint
 
 
-def Radix_sort(lst):
+def radix_sort(lst):
     max_digits = max([len(str(x)) for x in lst])  # количество разрядов самого длинного числа
     base = 10  # основание системы счисления
     sorting_bins = [[] for _ in range(base)]  # промужеточный пустой массив
@@ -9,9 +9,9 @@ def Radix_sort(lst):
     neg_nums = []
     pos_nums = []
     for num in lst:
-        if str(num)[0] == '-':
-            num = str(num)[1:]  # срезом убираем минус
-            neg_nums.append(int(num))
+        if num < 0:
+            num *= -1  # убираем минус
+            neg_nums.append(num)
         else:
             pos_nums.append(num)
 
@@ -22,7 +22,7 @@ def Radix_sort(lst):
             sorting_bins[digit].append(x)
         neg_nums = [x for order in sorting_bins for x in order]
         sorting_bins = [[] for _ in range(base)]
-    neg_nums = neg_nums[::-1]  # срезом переворачиваем отрицательный список
+    neg_nums.reverse()  # срезом переворачиваем отрицательный список
     neg_nums = [-x for x in neg_nums]  # делаем все числа в списке отрицательными
 
     # отдельная сортировка положительных чисел
@@ -40,4 +40,4 @@ def Radix_sort(lst):
 # spisok = list(map(int, input().split()))
 spisok = [randint(-10000, 10000) for i in range(10)]
 print(spisok)
-print(Radix_sort(spisok))
+print(radix_sort(spisok))
