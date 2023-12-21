@@ -1,9 +1,12 @@
+from itertools import combinations
+
 class Point:
+    def __hash__(self):
+        return hash((self.x, self.y))
+
+
     def __init__(self, x: (int, float), y: (int, float)):
-        '''
-        Задание точки по 2 координатам
-        TODO: Передавать кортеж, список
-        '''
+        # Задание точки по 2 координатам
         if not isinstance(x, (int, float)):
             raise TypeError('x должен быть объектом типа float или int')
         if not isinstance(y, (int, float)):
@@ -47,8 +50,6 @@ class TiLoxError(Exception):
 
 class Line:
     def __init__(self, A: Point, B: Point):
-        if A == B:
-            raise ValueError('Точки задания прямой не должны быть равны')
         x1 = A.x
         y1 = A.y
         x2 = B.x
@@ -73,7 +74,7 @@ class Line:
                     if (left_x <= x <= right_x) and (lower_y <= y <= upper_y):
                         return Point(x, y)
                     else:
-                        bimbimbambam = 0 / 0
+                        0 / 0
                 if isinstance(other, (Line,)):
                     return Point(x, y)
             except ZeroDivisionError:
@@ -86,8 +87,6 @@ class Line:
 
 class Segment:
     def __init__(self, A: Point, B: Point):
-        if A == B:
-            raise ValueError('Точки задания отрезка не должны быть равны')
         x1 = A.x
         y1 = A.y
         x2 = B.x
@@ -103,9 +102,6 @@ class Segment:
         return ((self.end1.x - self.end2.x) ** 2 + (self.end1.y - self.end2.y) ** 2) ** 0.5
 
     def point_on_me(self, point):
-        # print(f'DEBUG: sum: {Segment(self.end1, point).length() + Segment(point, self.end2).length()}')
-        # print(f'DEBUG: len: {self.length()}')
-        # Проблема компов - неточность вычислений
         return abs(
             (
                     Segment(self.end1, point).length() +
@@ -116,10 +112,12 @@ class Segment:
     def __xor__(self, other):
         if isinstance(other, (Line,)):
             return other ^ self
-        if isinstance(other, (Segment,)):                                                                                    # Я инженер
-            potential_intersection_point = self.parent_line ^ other.parent_line                                              # Я не #бу как оно работает
-            if self.point_on_me(potential_intersection_point) and other.point_on_me(potential_intersection_point):           # Если тебе интересно, как это работает, смотри чертежи
-                return potential_intersection_point                                                                          # Лично мне - по#бать'''
+        if isinstance(other, (Segment,)):
+            potential_intersection_point = self.parent_line ^ other.parent_line
+            if self.point_on_me(potential_intersection_point) \
+                    and \
+                    other.point_on_me(potential_intersection_point):
+                return potential_intersection_point
             raise TiLoxError('Объекты не имеют общих точек')
         if isinstance(other, (Circle,)):
             return other ^ self
@@ -127,7 +125,13 @@ class Segment:
 
 
 class Circle:
+    def __str__(self):
+        return f'Circle(center={self.center}, radius={self.radius}, points={self.A.__str__(), self.B.__str__(), self.C.__str__()})'
+
     def __init__(self, A: Point, B: Point, C: Point):
+        self.A = A
+        self.B = B
+        self.C = C
         x1, y1 = A.x, A.y
         x2, y2 = B.x, B.y
         x3, y3 = C.x, C.y
@@ -184,7 +188,7 @@ class Circle:
                 return tuple(result)
             raise TiLoxError('Объекты не имеют общих точек')
 
-        if isinstance(other, Circle):
+        if isinstance(other, (Circle,)):
             x1 = self.center.x
             x2 = other.center.x
             y1 = self.center.y
@@ -211,3 +215,79 @@ class Circle:
                 return (Point(*intersection_point1), )
             else:
                 return Point(*intersection_point1), Point(*intersection_point2)
+
+
+class Triangle:
+    def __str__(self):
+        return f'Triangle({self.A}, {self.B}, {self.C})'
+
+    def __init__(self, A: Point, B: Point, C: Point):
+        self.A = A
+        self.B = B
+        self.C = C
+
+        self.a = Segment(A, B)
+        self.b = Segment(B, C)
+        self.c = Segment(A, C)
+        if self.a.point_on_me(C) or self.b.point_on_me(A) or self.c.point_on_me(B):
+            raise ValueError('Точки лежат на одной прямой, из них невозможно составить треугольник')
+        self.sides = [self.a, self.b, self.c]
+
+    def __xor__(self, other):
+        if not isinstance(other, (Triangle, )):
+            raise NotImplementedError(f'Не реализована проверка пересечения Triangle и {type(other)}')
+        for side_my in self.sides:
+            for side_other in other.sides:
+                try:
+                    side_my ^ side_other
+                    return True
+                except TiLoxError:
+                    continue
+        return False
+
+
+
+# Окружность
+circle_points = [(8.54, 3.84), (-0.94, 3.83), (3.5, 0.36)]
+
+# Треугольник 1
+triangle1_points = [(2.44, 8.2), (4.87, 9.41), (6.0, 7.57)]
+
+# Треугольник 2
+triangle2_points = [(2.16, 6.63), (2.14, 2.64), (5.84, 2.47)]
+
+# Создаём лист точек
+merged_points = [Point(*i) for i in circle_points + triangle1_points + triangle2_points] + [Point(1,1)]
+__import__('random').shuffle(merged_points)
+found_triangles = False
+for nine_set in combinations(merged_points, 9):
+    max_x = max(list(map(lambda point: point.x, nine_set)))
+    min_x = min(list(map(lambda point: point.x, nine_set)))
+    max_y = max(list(map(lambda point: point.y, nine_set)))
+    min_y = min(list(map(lambda point: point.y, nine_set)))
+    geom_centre = Point((max_x + min_x) / 2, (max_y + min_y) / 2)
+    list_with_distances = [(p, Segment(geom_centre, p).length()) for p in nine_set]
+    list_with_distances.sort(key=lambda x: -x[1])
+    three_farthest_points = list_with_distances[:3]
+    if three_farthest_points[-1][1] in list(map(lambda x: x[1], list_with_distances[3:])):
+        # print('Больше трёх "самых дальних" точек!!!!!!!!!"')
+        continue
+    circle = Circle(*tuple(map(lambda x: x[0], three_farthest_points)))
+    points_for_triangles = list(map(lambda x: x[0], list_with_distances[3:]))
+    for i in combinations(points_for_triangles, 3):
+        triangle1_points = i
+        triangle2_points = tuple(set(points_for_triangles) - set(triangle1_points))
+        triangle1 = Triangle(*triangle1_points)
+        triangle2 = Triangle(*triangle2_points)
+        if not triangle1 ^ triangle2:
+            found_triangles = True
+            break
+    if found_triangles:
+        break
+
+if found_triangles:
+    print(circle)
+    print(triangle1)
+    print(triangle2)
+else:
+    print('Hz, not found')
