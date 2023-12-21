@@ -247,18 +247,6 @@ class Triangle:
         return False
 
 
-
-# Окружность
-circle_points = [(8.54, 3.84), (-0.94, 3.83), (3.5, 0.36)]
-
-# Треугольник 1
-triangle1_points = [(2.44, 8.2), (4.87, 9.41), (6.0, 7.57)]
-
-# Треугольник 2
-triangle2_points = [(2.16, 6.63), (2.14, 2.64), (5.84, 2.47)]
-
-# Создаём лист точек
-merged_points = [Point(*i) for i in circle_points + triangle1_points + triangle2_points] + [Point(1,1)]
 merged_points = [Point(random.randint(-100, 100) + random.random(), random.randint(-100, 100) + random.random()) for _ in range(100)]
 __import__('random').shuffle(merged_points)
 found_triangles = False
